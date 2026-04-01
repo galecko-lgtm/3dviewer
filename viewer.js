@@ -35,6 +35,12 @@ window.addEventListener('DOMContentLoaded', () => {
         resizeRenderer();
     });
 
+    setTimeout(() => {
+        resizeRenderer();
+        console.log("Forced resize:", renderer.domElement.width, renderer.domElement.height);
+    }, 100);
+
+
 
     // --- LIGHTING ---
     const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 3);
