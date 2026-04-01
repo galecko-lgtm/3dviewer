@@ -23,22 +23,31 @@ window.addEventListener('DOMContentLoaded', () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     container.appendChild(renderer.domElement);
     
-    function resizeRenderer() {
+    // Bulletproof resize loop
+    function ensureSize() {
         const width = container.clientWidth;
         const height = container.clientHeight;
+    
+        // If container still has no size, try again next frame
+        if (width === 0 || height === 0) {
+            requestAnimationFrame(ensureSize);
+            return;
+        }
+    
+        // Once size is real, apply it
         renderer.setSize(width, height);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
+    
+        console.log("Canvas initialized at:", width, height);
     }
     
-    window.addEventListener('load', () => {
-        resizeRenderer();
-    });
+    // Start the loop
+    ensureSize();
+    
+    // Also resize on window resize
+    window.addEventListener('resize', ensureSize);
 
-    setTimeout(() => {
-        resizeRenderer();
-        console.log("Forced resize:", renderer.domElement.width, renderer.domElement.height);
-    }, 100);
 
 
 
