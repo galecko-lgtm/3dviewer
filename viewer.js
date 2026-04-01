@@ -21,9 +21,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // --- RENDERER ---
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
     container.appendChild(renderer.domElement);
+    
+    function resizeRenderer() {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+    }
+    
+    window.addEventListener('load', () => {
+        resizeRenderer();
+    });
+
 
     // --- LIGHTING ---
     const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 3);
