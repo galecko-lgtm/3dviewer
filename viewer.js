@@ -4,6 +4,8 @@ import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160/examples/js
 window.addEventListener('DOMContentLoaded', () => {
 
     const container = document.getElementById('viewerContainer');
+    console.log("Container element:", container);
+
 
     // --- SCENE ---
     const scene = new THREE.Scene();
